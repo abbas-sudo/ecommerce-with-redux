@@ -1,23 +1,25 @@
-import logo from './logo.svg';
+import {Suspense} from 'react';
 import './App.css';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import Headers from './containers/Headers';
+import ProductListing from './containers/ProductListing';
+import ProductDetail from './containers/ProductDetails';
+import ProductComponents from './containers/ProductComponents';
+
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <BrowserRouter>
+        <Suspense fallback='Loading'>
+          <Headers />
+          <Switch>
+            <Route path="/" exact component={ProductListing} />
+            <Route path="/product/:productId" exact component={ProductDetail} />
+            {/* <ProductComponents />  */}
+          </Switch>
+        </Suspense>
+      </BrowserRouter>
     </div>
   );
 }
